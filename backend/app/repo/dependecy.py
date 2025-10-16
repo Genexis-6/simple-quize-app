@@ -10,9 +10,10 @@ Base = declarative_base()
 
 class DbSessionManager:
     def __init__(self, host:str):
-        self.__engine = create_async_engine(url=host)
+        self.__engine = create_async_engine(url=host,  connect_args={"check_same_thread": False} if "sqlite" in host else {},)
         self.__session_maker = async_sessionmaker(
-            bind=self.__engine, connect_agrs = {"check_same_thread": False}
+            bind=self.__engine,
+            autoflush=True, autocommit=False, class_=AsyncSession, expire_on_commit=False
         )
         
     async def start(self):

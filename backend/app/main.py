@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 import contextlib
 from app.repo import db_session_manager
+from app.routes import register_all_routes
+
 
 
 @contextlib.asynccontextmanager
@@ -16,6 +18,10 @@ app = FastAPI(
     ,lifespan= lifespan
 )
 
+register_all_routes(app)
+
+
 @app.get("/")
 async def welcome():
+    
     return "api running"
