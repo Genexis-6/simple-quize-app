@@ -7,7 +7,7 @@ class DefaultInputField extends StatelessWidget {
     required this.controller,
     this.validator,
     this.hintText = "",
-    this.labelText = ""
+    this.labelText = "",
   });
 
   final TextEditingController controller;
@@ -18,7 +18,7 @@ class DefaultInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 270,
-      height: 60,
+      height: 65,
       child: TextFormField(
         controller: controller,
         validator: (value) => validator!.call(input: value!),
