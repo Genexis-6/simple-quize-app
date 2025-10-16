@@ -2,6 +2,7 @@ from ..dependecy import AsyncSession
 from sqlalchemy import select
 from ..models.memes_model import MemesModel
 from ..schemas.meme_schemas import MemeSchemas
+from app.config import main_config
 
 
 class MemeQueries:
@@ -17,7 +18,7 @@ class MemeQueries:
             return [
                 MemeSchemas(
                     person= result.person, 
-                    audio_file=result.audio_file,
+                    audio_file=f"http://{main_config.HOST}:{main_config.PORT}/static/{result.audio_file}",
                     meme_text=result.meme_text
                     
                 )
