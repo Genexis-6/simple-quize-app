@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/features/meme/provider/audio_play_provider.dart';
 import 'package:mobile/features/meme/provider/meme_provider.dart';
 import 'package:mobile/features/meme/provider/track_question_provider.dart';
 import 'package:mobile/features/meme/view/pages/home_meme_screen.dart';
@@ -17,7 +18,8 @@ class MemeApp extends StatelessWidget {
     return MultiProvider(
        providers: [
         ChangeNotifierProvider(create: (context) => MemeProvider()),
-        ChangeNotifierProvider(create: (context) => TrackQuestionProvider())
+        ChangeNotifierProvider(create: (context) => TrackQuestionProvider()),
+        ChangeNotifierProvider(create: (context)=> AudioPlayProvider())
        ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

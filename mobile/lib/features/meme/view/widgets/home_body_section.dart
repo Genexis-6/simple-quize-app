@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/features/meme/models/meme_response_model.dart';
 import 'package:mobile/features/meme/provider/meme_provider.dart';
 import 'package:mobile/features/meme/provider/track_question_provider.dart';
+import 'package:mobile/features/meme/view/widgets/audio_player_widget.dart';
 // import 'package:mobile/features/meme/view/pages/home_meme_screen.dart';
 import 'package:mobile/features/meme/view/widgets/default_button.dart';
 import 'package:mobile/features/meme/view/widgets/default_input_field.dart';
@@ -100,7 +101,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text(currentMeme.audioFile),
+                        AudioPlayerWidget(audioUrl: currentMeme.audioFile),
 
                         const SizedBox(height: 20),
                         SizedBox(width: 200, child: Divider()),

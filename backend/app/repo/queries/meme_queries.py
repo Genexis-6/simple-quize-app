@@ -19,7 +19,7 @@ class MemeQueries:
                 MemeSchemas(
                     id=result.id,
                     person= result.person, 
-                    audio_file=f"http://{main_config.HOST}:{main_config.PORT}/static/{result.audio_file}",
+                    audio_file=f"http://{main_config.ANDROIDHOST}:{main_config.PORT}/static/{result.audio_file}",
                     meme_text=result.meme_text
                     
                 )

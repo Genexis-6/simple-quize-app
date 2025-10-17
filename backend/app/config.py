@@ -8,6 +8,7 @@ class MainConfig(BaseSettings):
     APP_NAME:str
     PORT:int
     RELOAD:bool
+    ANDROIDHOST:str
     HOST:str
     
     
