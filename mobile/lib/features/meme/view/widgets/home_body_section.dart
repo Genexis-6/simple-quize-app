@@ -10,9 +10,12 @@ import 'package:mobile/features/meme/view/widgets/audio_player_widget.dart';
 import 'package:mobile/features/meme/view/widgets/default_button.dart';
 import 'package:mobile/features/meme/view/widgets/default_input_field.dart';
 import 'package:mobile/features/meme/view/widgets/show_progress.dart';
+import 'package:mobile/utils/constants/image_strings.dart';
+import 'package:mobile/utils/constants/text.dart';
 import 'package:mobile/utils/notifications.dart';
 import 'package:mobile/utils/validators.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class BodySection extends StatefulWidget {
   const BodySection({
@@ -54,7 +57,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Welcome user",
+            KText.greeting,
             style: GoogleFonts.roboto(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -87,7 +90,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                         Row(
                           children: [
                             Text(
-                              "Meme Text: ",
+                              KText.memeText,
                               style: GoogleFonts.roboto(fontSize: 16),
                             ),
                             Flexible(
@@ -114,7 +117,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                         Row(
                           children: [
                             Text(
-                              "Meme audio:",
+                              KText.memeAudioText,
                               style: GoogleFonts.roboto(fontSize: 16),
                             ),
                             AudioPlayerWidget(audioUrl: currentMeme.audioFile),
@@ -129,8 +132,8 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                           child: Column(
                             children: [
                               DefaultInputField(
-                                hintText: "Guess...",
-                                labelText: "Who said it??",
+                                hintText: KText.inputHintText,
+                                labelText: KText.inputLable,
                                 controller: widget._editingController,
                                 validator: KValidators.validateInput,
                               ),
@@ -182,7 +185,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          "Total meme -> ${memeDatalist.length}",
+                          KText.progressText,
                           style: GoogleFonts.roboto(fontSize: 16),
                         ),
 
@@ -202,7 +205,7 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                   width: 150,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/bg.png"),
+                      image: AssetImage(KImgaeStrings.chillGuyPath),
                       fit: BoxFit.cover,
                     ),
                   ),
