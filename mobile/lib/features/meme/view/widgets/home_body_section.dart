@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/features/meme/models/cache_answer.dart';
+import 'package:mobile/features/meme/models/meme_data.dart';
 import 'package:mobile/features/meme/models/meme_response_model.dart';
 import 'package:mobile/features/meme/provider/meme_provider.dart';
 import 'package:mobile/features/meme/provider/track_question_provider.dart';
@@ -82,27 +84,42 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxWidth: 280,
-                              maxHeight: 300,
+                        Row(
+                          children: [
+                            Text(
+                              "Meme Text: ",
+                              style: GoogleFonts.roboto(fontSize: 16),
                             ),
-                            child: Text(
-                              currentMeme.memeText,
-                              maxLines: 4,
+                            Flexible(
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: 280,
+                                  maxHeight: 300,
+                                ),
+                                child: Text(
+                                  currentMeme.memeText,
+                                  maxLines: 4,
 
-                              style: GoogleFonts.roboto(
-                                fontSize: 17,
-
-                                fontWeight: FontWeight.w600,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 17,
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                         const SizedBox(height: 10),
-                        AudioPlayerWidget(audioUrl: currentMeme.audioFile),
-
+                        Row(
+                          children: [
+                            Text(
+                              "Meme audio:",
+                              style: GoogleFonts.roboto(fontSize: 16),
+                            ),
+                            AudioPlayerWidget(audioUrl: currentMeme.audioFile),
+                          ],
+                        ),
                         const SizedBox(height: 20),
                         SizedBox(width: 200, child: Divider()),
                         const SizedBox(height: 10),
@@ -146,10 +163,16 @@ class _BodySectionState extends State<BodySection> with DisplayNotification {
                                     widget._editingController.clear();
 
                                     if (total.getQuizStatus == true) {
-                                      showNotification(context, () {
-                                        meme.clearCache();
-                                        total.reset();
-                                      }, title: "Quiz finished" , message: 'you scored ${meme.totalCorrectAnswer}/${total.getTotal}');
+                                      showNotification(
+                                        context,
+                                        () {
+                                          meme.clearCache();
+                                          total.reset();
+                                        },
+                                        title: "Quiz finished",
+                                        message:
+                                            'you scored ${meme.totalCorrectAnswer}/${total.getTotal}',
+                                      );
                                     }
                                   }
                                 },

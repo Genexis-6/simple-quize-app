@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/features/meme/models/meme_response_model.dart';
 import 'package:mobile/features/meme/provider/meme_provider.dart';
+import 'package:mobile/features/meme/view/widgets/default_button.dart';
 import 'package:mobile/features/meme/view/widgets/home_body_section.dart';
 import 'package:provider/provider.dart';
 
@@ -21,10 +23,14 @@ class _HomeMemeScreenState extends State<HomeMemeScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      var meme = context.read<MemeProvider>();
-      await meme.fetchMemes();
-      responseModel = meme.memeResponse!;
+      await getMemes();
     });
+  }
+
+  getMemes() async {
+    var meme = context.read<MemeProvider>();
+    await meme.fetchMemes();
+    responseModel = meme.memeResponse!;
   }
 
   @override
@@ -45,10 +51,29 @@ class _HomeMemeScreenState extends State<HomeMemeScreen> {
           child: Consumer<MemeProvider>(
             builder: (context, model, _) {
               if (model.isLoading == true) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(color: Colors.green),
+                );
               }
               if (model.memeResponse == null) {
-                return const Center(child: Text("No memes loaded yet"));
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric( vertical: 8.0),
+                        child: Text(
+                          "unable to fetch meme",
+                          style: GoogleFonts.roboto(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    DefaultOperationButton(
+                      title: "retry",
+                      opration: () async => await getMemes(),
+                    ),
+                  ],
+                );
               }
               return BodySection(
                 memeResponseModel: model.memeResponse!,
@@ -62,5 +87,3 @@ class _HomeMemeScreenState extends State<HomeMemeScreen> {
     );
   }
 }
-
-

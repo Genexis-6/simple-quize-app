@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// tracks the question's length and status
 class TrackQuestionProvider extends ChangeNotifier {
   int _current = 0;
   int _total = 0;
@@ -8,6 +9,7 @@ class TrackQuestionProvider extends ChangeNotifier {
   int get getCurrent => _current;
 
   bool get getQuizStatus => _quizStatus;
+  int get getTotal => _total;
 
   void reset() {
     _current = 0;
@@ -20,12 +22,9 @@ class TrackQuestionProvider extends ChangeNotifier {
       _current += 1;
     } else {
       _quizStatus = true;
-      
     }
     notifyListeners();
   }
-
-  int get getTotal => _total;
 
   void setTotal(int n) {
     _total = n;

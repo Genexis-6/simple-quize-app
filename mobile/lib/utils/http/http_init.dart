@@ -1,11 +1,11 @@
-import "dart:io";
+import "dart:async";
 import "package:http/http.dart" as http;
 import "dart:convert";
 
+
+
 class DefaultRequestSettings {
   static const String baseUrl = "10.0.2.2:9000";
-
-
 
   static Future<T> get<T>({
     required String endpoint,
@@ -14,7 +14,9 @@ class DefaultRequestSettings {
   }) async {
     final url = Uri.http(baseUrl, endpoint);
     try {
-      final response = await http.get(url, headers: headers);
+      final response = await http
+          .get(url, headers: headers)
+          .timeout(Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -25,8 +27,11 @@ class DefaultRequestSettings {
           "GET request failed: ${response.statusCode} - ${response.reasonPhrase}",
         );
       }
-    } on SocketException catch (e) {
-      throw Exception("error due to $e");
+    } on TimeoutException catch (_) {
+      // return ResponseEnums.error;
+      throw Exception("connection time out");
+    } catch (_) {
+      throw Exception("error occured when connecting to backend");
     }
   }
 }
